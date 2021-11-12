@@ -8,18 +8,20 @@ services:
     environment:
       - INFLUXDB_DB=k6
     volumes:
-      - influxdb:/var/lib/influxdb
+      - ./influxdb:/var/lib/influxdb
 
   grafana:
     image: grafana/grafana:latest
     ports:
       - "3000:3000"
     environment:
-      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Viewer
       - GF_AUTH_ANONYMOUS_ENABLED=true
       - GF_AUTH_BASIC_ENABLED=false
+      - GF_SECURITY_ADMIN_PASSWORD=Gr4fANa@
+      - GF_SECURITY_ADMIN_USER=superuser
     volumes:
-      - grafana:/var/lib/grafana
+      - ./grafana:/var/lib/grafana
 
 volumes:
   influxdb:
